@@ -3,6 +3,7 @@ import {
   ComposableMap,
   Geographies,
   Geography,
+  ZoomableGroup,
 } from "react-simple-maps";
 import { worldMap } from '../static/mapJson';
 
@@ -25,6 +26,7 @@ class Map extends Component {
           height={551}
           style={itemStyle}
           >
+           <ZoomableGroup>
             <Geographies geography={worldMap}>
               {(geographies, projection) => geographies.map((geography, i) => geography.id !== "ATA" && (
                 <Geography
@@ -54,6 +56,7 @@ class Map extends Component {
                 />
               ))}
             </Geographies>
+          </ZoomableGroup>
         </ComposableMap>
       </div>
     );
