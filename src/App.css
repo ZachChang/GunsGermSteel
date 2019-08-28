@@ -10,3 +10,21 @@
   perspective: 600px;
   border: 1px solid #CCC;
 }
+.bar {
+  transform: translateX(-7.5px) rotateX(-90deg) rotateY(-25deg);
+  will-change: height;
+  width: 15px;
+  background-color: white;
+  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  margin: 6px;
+  position: relative;
+  background: linear-gradient(to bottom, #feffff 0%, #ddf1f9 0%, #a0d8ef 100%);
+}
+.bar1 {
+  height: 150px;
+  margin-top: -150px;
+}
