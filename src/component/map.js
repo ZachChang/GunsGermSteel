@@ -62,8 +62,9 @@ class Map extends Component {
                   marker={continent}
                 >
                   <g>
-                  <rect height={85} width={36}><title>node0
-There is 4 stuff in this node</title></rect>
+                    <rect height={85} width={36}>
+                      <title>node0 There is 4 stuff in this node</title>
+                    </rect>
                     <circle cx={20} cy={20} r={5} fill="pink" stroke="#607D8B" />
                   </g>
                 </Marker>
