@@ -27,12 +27,11 @@ const SankeyonMap = ({ data, width, height }) => {
     .nodePadding(60)
     .extent([[1, 1], [width - 1, height - 5]])(data);
 
-
-  // console.log({nodes, links});
-  console.log(sankey());
-
   return (
-    <g style={{ mixBlendMode: "multiply" }}>
+    <g
+      style={{ mixBlendMode: "multiply" }}
+      transform="rotate(90 50 50) skewX(50)"
+    >
       {nodes.map((node, i) => (
         <SankeyNode
           {...node}

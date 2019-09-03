@@ -9,11 +9,11 @@ import {
 } from "react-simple-maps";
 import { worldMap } from '../static/mapJson';
 import { sankeyCoordinates } from '../static/sankeyData';
+import HumanFateSankey from './chart';
 
 const wrapperStyles = {
   width: "100%",
   maxWidth: 980,
-  perspective: 600,
 }
 
 const mapStyle = {
@@ -34,11 +34,7 @@ class Map extends Component {
           }}
           width={980}
           height={551}
-          style={{
-            width: "100%",
-            height: "auto",
-            transform: 'rotateX(45deg)'
-          }}
+          className='world-map'
           >
           <ZoomableGroup center={[0,20]} disablePanning>
             <Geographies geography={worldMap}>
@@ -61,12 +57,7 @@ class Map extends Component {
                   key={i}
                   marker={continent}
                 >
-                  <g>
-                    <rect height={85} width={36}>
-                      <title>node0 There is 4 stuff in this node</title>
-                    </rect>
-                    <circle cx={20} cy={20} r={5} fill="pink" stroke="#607D8B" />
-                  </g>
+                <circle cx={20} cy={20} r={5} fill="pink" stroke="#607D8B" />
                 </Marker>
               )}
             </Markers>

@@ -3,14 +3,19 @@
   padding-top: 20%;
   text-align: center;
 }
-.map-container {
-  width: 100%;
-  max-width: 980px;
-  margin: 0 auto;
-  perspective: 600px;
-  border: 1px solid #CCC;
+.main-sankey {
+  width: 500px;
+  height: 40px;
 }
-.bar {
+.world-map {
+  width: 100%;
+  transform: perspective(600px) rotateX(45deg);
+}
+
+
+
+
+/* .bar {
   transform: translateX(-7.5px) rotateX(-90deg) rotateY(-25deg);
   will-change: height;
   width: 15px;
@@ -27,9 +32,4 @@
 .bar1 {
   height: 150px;
   margin-top: -150px;
-}
-.main-sankey {
-  width: 500px;
-  height: 40px;
-  transform: rotate(90deg);
-}
+} */
