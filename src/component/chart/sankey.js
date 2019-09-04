@@ -23,14 +23,13 @@ const SankeyLink = ({ link, color }) => (
 const SankeyonMap = ({ data, width, height }) => {
 
   const { nodes, links } = sankey()
-    .nodeWidth(30)
-    .nodePadding(60)
+    .nodeWidth(15)
+    .nodePadding(10)
     .extent([[1, 1], [width - 1, height - 5]])(data);
 
   return (
     <g
       style={{ mixBlendMode: "multiply" }}
-      transform="rotate(90 50 50) skewX(50)"
     >
       {nodes.map((node, i) => (
         <SankeyNode

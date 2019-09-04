@@ -5,31 +5,30 @@
 }
 .main-sankey {
   width: 500px;
-  height: 40px;
+  height: 400px;
 }
 .world-map {
   width: 100%;
-  transform: perspective(600px) rotateX(45deg);
+  transform: perspective(600px) rotateX(45deg) translateX(-100px);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 }
 
 
-
-
-/* .bar {
-  transform: translateX(-7.5px) rotateX(-90deg) rotateY(-25deg);
-  will-change: height;
-  width: 15px;
-  background-color: white;
-  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  margin: 6px;
-  position: relative;
-  background: linear-gradient(to bottom, #feffff 0%, #ddf1f9 0%, #a0d8ef 100%);
+.main-markers
+{
+  position: absolute;
 }
-.bar1 {
-  height: 150px;
-  margin-top: -150px;
-} */
+
+/* flat line */
+.flat-line
+{
+  transform: rotate(-90deg) translateY(300px);
+  transform-origin: center;
+}
+
+/* 3D sankey */
+.three-d
+{
+  transform: rotate(-90deg) translateY(300px) rotateY(30deg);
+  transform-origin: center;
+}

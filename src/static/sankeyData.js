@@ -10,7 +10,6 @@ export const sankeyData = {
     {"source":0,"target":2,"value":2},
     {"source":1,"target":2,"value":2},
     {"source":1,"target":3,"value":2},
-    {"source":0,"target":4,"value":2},
     {"source":2,"target":3,"value":2},
     {"source":2,"target":4,"value":2},
     {"source":3,"target":4,"value":4}
