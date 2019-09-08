@@ -19,22 +19,27 @@ export const sankeyData = {
 export const sankeyCoordinates = [
   {
     continent: "eurasia",
-    coordinates: [ 80.085833, 58.483333 ]
+    coordinates: [ 2, 51 ],
+    width: 345
   },
   {
     continent: "northAmerica",
-    coordinates: [ -113, 52.5 ]
+    coordinates: [ -124, 45 ],
+    width: 138
   },
   {
     continent: "sorthAmerica",
-    coordinates: [ -68, -8 ]
+    coordinates: [ -79, -8 ],
+    width: 116
   },
   {
     continent: "africa",
-    coordinates: [ 18, 13 ]
+    coordinates: [ -12, 8 ],
+    width: 163
   },
   {
     continent: "australia",
-    coordinates: [ 128, -19 ]
+    coordinates: [ 114, -25 ],
+    width: 100
   },
 ]

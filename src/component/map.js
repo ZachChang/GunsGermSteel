@@ -13,13 +13,12 @@ import HumanFateSankey from './chart';
 import * as d3 from 'd3'
 
 const wrapperStyles = {
-  width: "100%",
-  maxWidth: 980,
+  width: 980,
   margin: '0 auto'
 }
 
 const mapStyle = {
-  fill: "#607D8B",
+  fill: "#D5D2CE",
   stroke: "none",
   strokeWidth: 0.75,
   outline: "none"
@@ -29,10 +28,11 @@ class Map extends Component {
   constructor() {
     super();
     this.state = {
+      lineMarker: {},
       sankeyData: null,
       sankeyWidth: 40,
       rotate: false,
-      markerStyle: {
+      sankeyMarker: {
         transform: 'rotate(-90deg) translateY(300px)',
         transition: 'transform 2.5s ease-in-out, box-shadow 2.5s ease-in-out',
         transformOrigin: 'center',
@@ -45,7 +45,7 @@ class Map extends Component {
     };
   }
   next = () => {
-    const prevMarker = this.state.markerStyle;
+    const prevMarker = this.state.sankeyMarker;
     const prevWorldMap = this.state.worldMapStyle;
     if (this.state.rotate) {
       this.setState({
@@ -55,7 +55,7 @@ class Map extends Component {
           ...prevWorldMap,
           transform: 'translateX(-100px)',
         },
-        markerStyle: {
+        sankeyMarker: {
           ...prevMarker,
           transform: 'rotate(-90deg) translateY(300px)',
         }
@@ -76,7 +76,7 @@ class Map extends Component {
          ...prevWorldMap,
          transform: 'perspective(600px) rotateX(45deg) translateX(-100px)'
        },
-       markerStyle: {
+       sankeyMarker: {
          ...prevMarker,
          transform: 'rotate(-90deg) translateY(300px) rotateY(30deg)'
        }
@@ -98,7 +98,7 @@ class Map extends Component {
     )
   }
   render() {
-    const { markerStyle, worldMapStyle, sankeyData, sankeyWidth } = this.state;
+    const { sankeyMarker, lineMarker, worldMapStyle, sankeyData, sankeyWidth, showSankey } = this.state;
     return (
       <div style={wrapperStyles}>
         <div onClick={this.next}>
@@ -128,18 +128,21 @@ class Map extends Component {
                 />
               ))}
             </Geographies>
-            <Markers style={markerStyle}>
+            <Markers style={showSankey ? sankeyMarker : lineMarker}>
               {sankeyCoordinates.map((continent, i) =>
-                i===0 ?
-                  <Marker
-                    key={i}
-                    marker={continent}
-                  >
-                  {sankeyData && (
-                    <HumanFateSankey data={sankeyData} width={sankeyWidth}/>
-                  )}
-                  </Marker>
-                : null
+                <Marker
+                  key={i}
+                  marker={continent}
+                >
+                  <rect
+                    width={continent.width}
+                    height={150}
+                    y={-150}
+                    style={{
+                      fill: 'F78A64',
+                    }}
+                  />
+                </Marker>
               )}
             </Markers>
           </ZoomableGroup>
