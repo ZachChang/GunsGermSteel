@@ -10,14 +10,51 @@ body {
   min-height: 4000px;
 }
 .description {
-  border: 1px solid blue;
-  width: 550px;
+  width: 500px;
   position: fixed;
   height: 500px;
-  text-align: center;
-  padding-top: 100px;
-  left: 700px;
+  padding-top: 180px;
+  left: 740px;
 }
+.description-title {
+  font-size: 30px;
+  font-weight: 500;
+  color: #F78A64;
+  margin-bottom: 30px;
+  line-height: 35px;
+}
+.description-content {
+  font-size: 18px;
+  color: #787673;
+  margin-bottom: 30px;
+}
+.font-italic {
+  font-style: italic;
+}
+.description-footer {
+  font-size: 18px;
+  color: #787673;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+.chart-info {
+  color: #787673;
+  padding-left: 120px;
+  margin-top: -50px;
+}
+.icon {
+  font-size: 32px;
+  cursor: pointer;
+}
+.icon-right {
+  padding-left: 20px;
+}
+
+
+
+
+
 .fixed-container {
   width: 700px;
   position: fixed;
@@ -39,8 +76,14 @@ body {
   background-color: #F78A64;
   z-index: 10;
   opacity: 0.5;
+  text-align: center;
+  font-size: 20px;
 }
-
+.top-num {
+  position: absolute;
+  top: -25px;
+  left: 42px;
+}
 .animate-0-0 {
   animation-name: addHeight-0;
   animation-duration: 1.5s;
@@ -51,7 +94,7 @@ body {
     height: 2px;
   }
   to {
-    height: 120px;
+    height: 194.5px;
   }
 }
 .animate-0-1 {
@@ -61,7 +104,7 @@ body {
 }
 @keyframes addHeight-0-1 {
   from {
-    height: 120px;
+    height: 194.5px;
   }
   to {
     height: 150px;
@@ -79,7 +122,7 @@ body {
     height: 2px;
   }
   to {
-    height: 10px;
+    height: 32.4px;
   }
 }
 .animate-1-1 {
@@ -89,7 +132,7 @@ body {
 }
 @keyframes addHeight-1-1 {
   from {
-    height: 10px;
+    height: 32.4px;
   }
   to {
     height: 0px;
@@ -107,7 +150,7 @@ body {
     height: 2px;
   }
   to {
-    height: 20px;
+    height: 32.4px;
   }
 }
 .animate-2-1 {
@@ -117,7 +160,7 @@ body {
 }
 @keyframes addHeight-2-1 {
   from {
-    height: 20px;
+    height: 32.4px;
   }
   to {
     height: 10px;
@@ -136,7 +179,7 @@ body {
     height: 2px;
   }
   to {
-    height: 10px;
+    height: 137.8px;
   }
 }
 .animate-3-1 {
@@ -146,7 +189,7 @@ body {
 }
 @keyframes addHeight-3-1 {
   from {
-    height: 10px;
+    height: 137.8px;
   }
   to {
     height: 0px;
@@ -164,7 +207,7 @@ body {
     height: 2px;
   }
   to {
-    height: 20px;
+    height: 2.68px;
   }
 }
 .animate-4-1 {
@@ -174,7 +217,7 @@ body {
 }
 @keyframes addHeight-4-1 {
   from {
-    height: 20px;
+    height: 2.68px;
   }
   to {
     height: 0px;

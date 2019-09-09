@@ -10,6 +10,8 @@ import {
 import { worldMap } from '../static/mapJson';
 import { sankeyCoordinates } from '../static/sankeyData';
 import HumanFateSankey from './chart';
+import Description from './description';
+import { step0 } from './step';
 import * as d3 from 'd3';
 import debounce from 'lodash.debounce';
 
@@ -21,32 +23,28 @@ const mapStyle = {
   outline: "none"
 }
 
+const candidates = [ '72', '12', '12', '51', '1'];
+const domesticated = [ '13', '0', '1', '0', '0'];
+
+
+
 class Map extends Component {
   constructor() {
     super();
     this.state = {
+      stepSet: step0,
+
       scrollY: 0,
       barStep: 0,
       step: 0,
-
       linePostions: [],
       barPostions: [],
-
-      pathVisibility: 'hidden',
-
-      lineMarker: {},
       sankeyData: null,
-      sankeyWidth: 40,
-      rotate: false,
       sankeyMarker: {
         transform: 'rotate(-90deg) translateY(300px)',
         transition: 'transform 2.5s ease-in-out, box-shadow 2.5s ease-in-out',
         transformOrigin: 'center',
       },
-      worldMapStyle: {
-        width: '100%',
-        transition: 'transform 1s ease-in-out, box-shadow 1s ease-in-out'
-      }
     };
 
     this.onMapScroll = this.onMapScroll.bind(this);
@@ -176,15 +174,14 @@ class Map extends Component {
   render() {
     const { sankeyMarker,
       lineMarker,
-      worldMapStyle,
       sankeyData,
       sankeyWidth,
       showSankey,
       linePostions,
       barPostions,
-      pathVisibility,
       barStep,
-      step
+      step,
+      stepSet
     } = this.state;
     return (
       <div onScroll={this.onMapScroll} className='main-container'>
@@ -227,7 +224,11 @@ class Map extends Component {
                             width: postion.width
                           }}
                           className={`barchart animate-${i}-${barStep}`}
-                        ></div>
+                        >
+                          <span className={step===2 ? i===4 ? 'top-num' : null : i!==0 ? 'top-num' : null}>
+                            {step===2 ? candidates[i] : domesticated[i]}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -241,7 +242,7 @@ class Map extends Component {
             }}
             width={600}
             height={500}
-            style={worldMapStyle}
+            style={stepSet.worldMapStyle}
             >
             <ZoomableGroup center={[0,20]} disablePanning>
               <Geographies geography={worldMap}>
@@ -270,7 +271,7 @@ class Map extends Component {
                         height={2}
                         style={{
                           fill: 'F78A64',
-                          visibility: pathVisibility
+                          visibility: stepSet.pathVisibility
                         }}
                       />
                     </Marker>
@@ -278,8 +279,13 @@ class Map extends Component {
                 </Markers>
             </ZoomableGroup>
           </ComposableMap>
+          {step===2 ?
+            <div className='chart-info'>( Numbers of mammalian candidates for domestication )</div> :
+            step===3 ?
+            <div className='chart-info'>( Numbers of Domesticated species )</div> : null
+          }
         </div>
-        <div className='description'>I am discripton I am discripton I am discripton I am discripton</div>
+        <Description step={step}/>
       </div>
     )
   }
