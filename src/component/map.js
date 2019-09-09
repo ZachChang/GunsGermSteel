@@ -13,11 +13,6 @@ import HumanFateSankey from './chart';
 import * as d3 from 'd3';
 import debounce from 'lodash.debounce';
 
-const wrapperStyles = {
-  width: 980,
-  // margin: '0 auto',
-  height: 2000
-}
 
 const mapStyle = {
   fill: "#D5D2CE",
@@ -31,8 +26,10 @@ class Map extends Component {
     super();
     this.state = {
       scrollY: 0,
+      barStep: 0,
       step: 0,
 
+      linePostions: [],
       barPostions: [],
 
       pathVisibility: 'hidden',
@@ -48,19 +45,18 @@ class Map extends Component {
       },
       worldMapStyle: {
         width: '100%',
-        transform: 'translateX(-200px) translateY(-100px)',
         transition: 'transform 1s ease-in-out, box-shadow 1s ease-in-out'
       }
     };
 
     this.onMapScroll = this.onMapScroll.bind(this);
-    this._handleScroll = debounce(this._handleScroll, 3000, {
+    this._handleScroll = debounce(this._handleScroll, 2000, {
       'leading': true,
       'trailing': false
     });
   }
 
-  _findPostion = () => {
+  _findPostion = (callback) => {
     console.log('_findPostion');
     const markersPostion = [];
     for (let i = 0; i < sankeyCoordinates.length; i++) {
@@ -75,11 +71,18 @@ class Map extends Component {
     }
     console.log({markersPostion});
 
-    this._drawBarChart(markersPostion);
+    return callback(markersPostion);
   }
 
-  _drawBarChart = (postions) => {
-    console.log('draw');
+  _setLinePostion = (postions) => {
+    console.log('line');
+    this.setState({
+      linePostions: postions
+    })
+  }
+
+  _setBarChart = (postions) => {
+    console.log('bar');
     this.setState({
       barPostions: postions
     })
@@ -94,7 +97,7 @@ class Map extends Component {
         rotate: false,
         worldMapStyle: {
           ...prevWorldMap,
-          transform: 'translateX(-200px) translateY(-100px)',
+          transform: 'null',
         },
         sankeyMarker: {
           ...prevMarker,
@@ -108,7 +111,7 @@ class Map extends Component {
        rotate: true,
        worldMapStyle: {
          ...prevWorldMap,
-         transform: 'perspective(600px) rotateX(45deg) translateX(-200px) translateY(-100px)'
+         transform: 'perspective(600px) rotateX(45deg)'
        },
        sankeyMarker: {
          ...prevMarker,
@@ -117,7 +120,7 @@ class Map extends Component {
      })
 
      setTimeout(() => {
-       this._findPostion();
+       this._findPostion(this._setBarChart);
      }, 1500);
    }
   }
@@ -127,22 +130,27 @@ class Map extends Component {
     const currentScrollY = window.scrollY;
     const forwoard = currentScrollY > scrollY ? true : false;
 
-    if (true) {
+    if (forwoard) {
       if (step===0) {
-        this.setState({pathVisibility: 'visible'});
       } else if (step===1) {
         this.roateMap();
-        this.setState({pathVisibility: 'hidden'});
+        this.setState({ pathVisibility: 'visible' });
+      } else if (step===2) {
+        this.setState({ barStep: 1 });
       }
       this.setState({
         step: step + 1,
         scrollY: currentScrollY
       })
-    } else {
-      this.setState({
-        step: step - 1,
-        scrollY: currentScrollY
-      })
+    }
+    else {
+      return null;
+      // this.roateMap();
+      // this.setState({
+      //   step: step - 1,
+      //   scrollY: currentScrollY,
+      //   pathVisibility: 'hidden'
+      // })
     }
     console.log('onMapScroll', {scrollY, currentScrollY, forwoard, step});
   }
@@ -153,6 +161,10 @@ class Map extends Component {
   }
   componentDidMount() {
     window.addEventListener('scroll', this.onMapScroll, true);
+    this._findPostion(this._setLinePostion);
+
+
+
 
     d3.json('/first-sankey-data.json').then(data =>
       this.setState({sankeyData: data})
@@ -168,45 +180,67 @@ class Map extends Component {
       sankeyData,
       sankeyWidth,
       showSankey,
+      linePostions,
       barPostions,
       pathVisibility,
+      barStep,
       step
     } = this.state;
     return (
-      <div style={wrapperStyles} onScroll={this.onMapScroll}>
+      <div onScroll={this.onMapScroll} className='main-container'>
         <div className='fixed-container'>
-          {step===2 &&
-            barPostions.map((postion, i) =>
-            // to set the bar chart height grow from bottom to top, we have to set the child div bottom, so it has nowhere to vertically increase but upwards
-              <div
-                key={i}
-                style={{
-                  position: 'absolute',
-                  zIndox: '10',
-                  left: postion.x - 8 , //reduce the edge width of the body
-                  top: postion.y - 8 , //reduce the edge width of the body
-                  width: postion.width
-                }}
-              >
-                <div style={{ position: 'relative'}}>
-                  <div
-                    style={{
-                      bottom: '0',
-                      width: postion.width
-                    }}
-                    className={`barchart animate-${i}`}
-                  ></div>
-                </div>
-              </div>
-            )
+          {step===1 ?
+            <React.Fragment>
+              {linePostions.map((postion, i) =>
+                <div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    zIndex: '10',
+                    left: postion.x - 3, //reduce the edge width of the body
+                    top: postion.y - 122, //reduce the edge width of the body
+                    height: 2,
+                    backgroundColor: '#F78A64',
+                  }}
+                  className={`line-animate-${i}`}
+                ></div>
+              )}
+            </React.Fragment> :
+              step===2 || step===3 ?
+                <React.Fragment>
+                  {barPostions.map((postion, i) =>
+                  // to set the bar chart height grow from bottom to top, we have to set the child div bottom, so it has nowhere to vertically increase but upwards
+                    <div
+                      key={i}
+                      style={{
+                        position: 'absolute',
+                        zIndex: '10',
+                        left: postion.x, //reduce the edge width of the body
+                        top: postion.y - 120, //reduce the edge width of the body
+                        width: postion.width
+                      }}
+                    >
+                      <div style={{ position: 'relative'}}>
+                        <div
+                          style={{
+                            bottom: '0',
+                            width: postion.width
+                          }}
+                          className={`barchart animate-${i}-${barStep}`}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
+              : null
           }
           <ComposableMap
             projectionConfig={{
-              scale: 205,
+              scale: 160,
               rotation: [-11,0,0],
             }}
-            width={980}
-            height={800}
+            width={600}
+            height={500}
             style={worldMapStyle}
             >
             <ZoomableGroup center={[0,20]} disablePanning>
@@ -245,6 +279,7 @@ class Map extends Component {
             </ZoomableGroup>
           </ComposableMap>
         </div>
+        <div className='description'>I am discripton I am discripton I am discripton I am discripton</div>
       </div>
     )
   }
