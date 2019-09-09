@@ -3,6 +3,102 @@
   padding-top: 20%;
   text-align: center;
 }
+.fixed-container {
+  width: 100%;
+  position: fixed;
+  position: -webkit-fixed;
+}
+.button {
+  background-color: pink;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+  height: 15px;
+  text-align: center;
+  font-size: 10px;
+  padding: 2px;
+}
+.barchart {
+  position: absolute;
+  background-color: #F78A64;
+  z-index: 10;
+  opacity: 0.5;
+}
+.animate-0 {
+  animation-name: addHeight-0;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes addHeight-0 {
+  from {
+    height: 2px;
+  }
+  to {
+    height: 120px;
+  }
+}
+
+.animate-1 {
+  animation-name: addHeight-1;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes addHeight-1 {
+  from {
+    height: 2px;
+  }
+  to {
+    height: 10px;
+  }
+}
+
+.animate-2 {
+  animation-name: addHeight-2;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes addHeight-2 {
+  from {
+    height: 2px;
+  }
+  to {
+    height: 20px;
+  }
+}
+
+.animate-3 {
+  animation-name: addHeight-3;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes addHeight-3 {
+  from {
+    height: 2px;
+  }
+  to {
+    height: 10px;
+  }
+}
+
+.animate-4 {
+  animation-name: addHeight-4;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes addHeight-4 {
+  from {
+    height: 2px;
+  }
+  to {
+    height: 20px;
+  }
+}
+
+
+
+
+
+
 .main-sankey {
   width: 500px;
   height: 400px;
