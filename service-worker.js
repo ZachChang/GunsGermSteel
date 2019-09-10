@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/GunsGermSteel/precache-manifest.f34e102d3a01c6ae933b5559c84adbcb.js"
+  "/GunsGermSteel/precache-manifest.fac37cd9f3b86df80aacea91502a9049.js"
 );
 
 self.addEventListener('message', (event) => {
