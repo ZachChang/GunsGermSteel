@@ -11,9 +11,9 @@ import { worldMap } from '../static/mapJson';
 import { sankeyCoordinates } from '../static/sankeyData';
 import HumanFateSankey from './chart';
 import Description from './description';
-import { step0 } from './step';
+import Sankey from './sankey';
+import { styleSet } from './step';
 import * as d3 from 'd3';
-import debounce from 'lodash.debounce';
 
 
 const mapStyle = {
@@ -32,26 +32,25 @@ class Map extends Component {
   constructor() {
     super();
     this.state = {
-      stepSet: step0,
+      stepSet: styleSet[0],
 
       scrollY: 0,
-      barStep: 0,
       step: 0,
       linePostions: [],
       barPostions: [],
       sankeyData: null,
-      sankeyMarker: {
-        transform: 'rotate(-90deg) translateY(300px)',
-        transition: 'transform 2.5s ease-in-out, box-shadow 2.5s ease-in-out',
-        transformOrigin: 'center',
-      },
+      // sankeyMarker: {
+      //   transform: 'rotate(-90deg) translateY(300px)',
+      //   transition: 'transform 2.5s ease-in-out, box-shadow 2.5s ease-in-out',
+      //   transformOrigin: 'center',
+      // },
     };
 
-    this.onMapScroll = this.onMapScroll.bind(this);
-    this._handleScroll = debounce(this._handleScroll, 2000, {
-      'leading': true,
-      'trailing': false
-    });
+    // this.onMapScroll = this.onMapScroll.bind(this);
+    // this._handleScroll = debounce(this._handleScroll, 2000, {
+    //   'leading': true,
+    //   'trailing': false
+    // });
   }
 
   _findPostion = (callback) => {
@@ -86,90 +85,124 @@ class Map extends Component {
     })
   }
 
-  roateMap = () => {
-    const prevMarker = this.state.sankeyMarker;
-    const prevWorldMap = this.state.worldMapStyle;
-    if (this.state.rotate) {
-      this.setState({
-        sankeyWidth: 40,
-        rotate: false,
-        worldMapStyle: {
-          ...prevWorldMap,
-          transform: 'null',
-        },
-        sankeyMarker: {
-          ...prevMarker,
-          transform: 'rotate(-90deg) translateY(300px)',
-        }
-      });
-    }
-   else {
-     this.setState({
-       sankeyWidth: 400,
-       rotate: true,
-       worldMapStyle: {
-         ...prevWorldMap,
-         transform: 'perspective(600px) rotateX(45deg)'
-       },
-       sankeyMarker: {
-         ...prevMarker,
-         transform: 'rotate(-90deg) translateY(300px) rotateY(30deg)'
-       }
-     })
+  // roateMap = () => {
+  //   setTimeout(() => {
+  //     this._findPostion(this._setBarChart);
+  //   }, 1500);
+   //  const prevMarker = this.state.sankeyMarker;
+   //  const prevWorldMap = this.state.worldMapStyle;
+   //  if (this.state.rotate) {
+   //    this.setState({
+   //      sankeyWidth: 40,
+   //      rotate: false,
+   //      worldMapStyle: {
+   //        ...prevWorldMap,
+   //        transform: 'null',
+   //      },
+   //      sankeyMarker: {
+   //        ...prevMarker,
+   //        transform: 'rotate(-90deg) translateY(300px)',
+   //      }
+   //    });
+   //  }
+   // else {
+   //   this.setState({
+   //     sankeyWidth: 400,
+   //     rotate: true,
+   //     worldMapStyle: {
+   //       ...prevWorldMap,
+   //       transform: 'perspective(600px) rotateX(45deg)'
+   //     },
+   //     sankeyMarker: {
+   //       ...prevMarker,
+   //       transform: 'rotate(-90deg) translateY(300px) rotateY(30deg)'
+   //     }
+   //   })
+   // }
+  // }
 
-     setTimeout(() => {
-       this._findPostion(this._setBarChart);
-     }, 1500);
-   }
+  // _handleScroll = () => {
+  //   const { scrollY, step } = this.state;
+  //   const currentScrollY = window.scrollY;
+  //   const forwoard = currentScrollY > scrollY ? true : false;
+  //
+  //   if (forwoard) {
+  //     if (step===0) {
+  //     } else if (step===1) {
+  //       this.roateMap();
+  //       this.setState({ pathVisibility: 'visible' });
+  //     } else if (step===2) {
+  //       this.setState({ barStep: 1 });
+  //     }
+  //     this.setState({
+  //       step: step + 1,
+  //       scrollY: currentScrollY
+  //     })
+  //   }
+  //   else {
+  //     return null;
+  //     // this.roateMap();
+  //     // this.setState({
+  //     //   step: step - 1,
+  //     //   scrollY: currentScrollY,
+  //     //   pathVisibility: 'hidden'
+  //     // })
+  //   }
+  //   // console.log('onMapScroll', {scrollY, currentScrollY, forwoard, step});
+  // }
+
+  // onMapScroll(e){
+  //   console.log('onMapScroll');
+  //   this._handleScroll();
+  // }
+
+  next = () => {
+    const { stepSet, step, barPostions } = this.state;
+    const newStep = step + 1;
+
+    if (step===1 && barPostions.length===0) {
+      console.log('f');
+      setTimeout(() => {
+        this._findPostion(this._setBarChart);
+      }, 1500);
+    }
+
+    this.setState({
+      step: newStep,
+      stepSet: styleSet[newStep]
+    })
   }
 
-  _handleScroll = () => {
-    const { scrollY, step } = this.state;
-    const currentScrollY = window.scrollY;
-    const forwoard = currentScrollY > scrollY ? true : false;
-
-    if (forwoard) {
-      if (step===0) {
-      } else if (step===1) {
-        this.roateMap();
-        this.setState({ pathVisibility: 'visible' });
-      } else if (step===2) {
-        this.setState({ barStep: 1 });
-      }
-      this.setState({
-        step: step + 1,
-        scrollY: currentScrollY
-      })
-    }
-    else {
-      return null;
-      // this.roateMap();
-      // this.setState({
-      //   step: step - 1,
-      //   scrollY: currentScrollY,
-      //   pathVisibility: 'hidden'
-      // })
-    }
-    console.log('onMapScroll', {scrollY, currentScrollY, forwoard, step});
+  back = () => {
+    const { stepSet, step } = this.state;
+    const newStep = step - 1;
+    this.setState({
+      step: newStep,
+      stepSet: styleSet[newStep]
+    })
   }
 
-  onMapScroll(e){
-    console.log('onMapScroll');
-    this._handleScroll();
-  }
+
+
+
+
+
+
+
+
   componentDidMount() {
-    window.addEventListener('scroll', this.onMapScroll, true);
+    // window.addEventListener('scroll', this.onMapScroll, true);
     this._findPostion(this._setLinePostion);
 
 
 
 
-    d3.json('/first-sankey-data.json').then(data =>
+    d3.json('/main-sankey-data.json').then(data =>
       this.setState({sankeyData: data})
     )
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onMapScroll, true);
+    // window.removeEventListener('scroll', this.onMapScroll, true);
   }
   render() {
     const { sankeyMarker,
@@ -179,12 +212,11 @@ class Map extends Component {
       showSankey,
       linePostions,
       barPostions,
-      barStep,
       step,
       stepSet
     } = this.state;
     return (
-      <div onScroll={this.onMapScroll} className='main-container'>
+      <div className='main-container'>
         <div className='fixed-container'>
           {step===1 ?
             <React.Fragment>
@@ -223,7 +255,7 @@ class Map extends Component {
                             bottom: '0',
                             width: postion.width
                           }}
-                          className={`barchart animate-${i}-${barStep}`}
+                          className={`barchart animate-${i}-${stepSet.barStep}`}
                         >
                           <span className={step===2 ? i===4 ? 'top-num' : null : i!==0 ? 'top-num' : null}>
                             {step===2 ? candidates[i] : domesticated[i]}
@@ -232,8 +264,9 @@ class Map extends Component {
                       </div>
                     </div>
                   )}
-                </React.Fragment>
-              : null
+                </React.Fragment> :
+                step===4 ?
+                <Sankey /> : null
           }
           <ComposableMap
             projectionConfig={{
@@ -285,7 +318,7 @@ class Map extends Component {
             <div className='chart-info'>( Numbers of Domesticated species )</div> : null
           }
         </div>
-        <Description step={step}/>
+        <Description step={step} next={this.next} back={this.back}/>
       </div>
     )
   }

@@ -23,7 +23,7 @@ const SankeyLink = ({ link, color }) => (
 const SankeyonMap = ({ data, width, height }) => {
 
   const { nodes, links } = sankey()
-    .nodeWidth(15)
+    .nodeWidth(30)
     .nodePadding(10)
     .extent([[1, 1], [width - 1, height - 5]])(data);
 

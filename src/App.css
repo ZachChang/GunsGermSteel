@@ -10,11 +10,11 @@ body {
   min-height: 4000px;
 }
 .description {
-  width: 500px;
+  width: 450px;
   position: fixed;
   height: 500px;
   padding-top: 180px;
-  left: 740px;
+  left: 774px;
 }
 .description-title {
   font-size: 30px;
@@ -50,8 +50,103 @@ body {
 .icon-right {
   padding-left: 20px;
 }
+.sankey-container {
+  transform: rotate(-90deg);
+  position: absolute;
+  z-index: 10;
+  top: -60px;
+  left: 280px;
+}
+.sankey-text-1 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: -35px;
+  top: 92px;
+}
+.sankey-text-2 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: -35px;
+  top: 300px;
+}
+.sankey-text-3 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 9px;
+  top: 24px;
 
-
+}
+.sankey-text-4 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 155px;
+  top: 240px;
+}
+.sankey-text-5 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 165px;
+  top: 40px;
+}
+.sankey-text-6 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 204px;
+  top: 230px;
+}
+.sankey-text-7 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 205px;
+  top: 92px;
+}
+.sankey-text-8 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 358px;
+  top: 30px;
+}
+.sankey-text-9 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 422px;
+  top: 240px;
+}
+.sankey-text-10 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  left: 475px;
+  top: 72px;
+}
+.sankey-text-11 {
+  transform: rotate(90deg);
+  position: absolute;
+  z-index: 100;
+  top: 267px;
+  left: 439px;
+  width: 200px;
+}
+.footer {
+  color: gray;
+  text-align: right;
+  padding-right: 30px;
+  padding-top: 80px;
+  height: 80px;
+}
+.author {
+  cursor: pointer;
+  color: #F78A64;
+}
 
 
 

@@ -5,10 +5,13 @@
   "dependencies": {
     "d3": "^5.11.0",
     "d3-sankey": "^0.12.1",
+    "highcharts": "7.0.1",
+    "highcharts-more": "^0.1.7",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-highcharts": "^16.0.2",
     "react-reveal": "^1.2.2",
     "react-scripts": "3.0.1",
     "react-simple-maps": "^0.12.1",
