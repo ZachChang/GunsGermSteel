@@ -5,6 +5,7 @@
   "dependencies": {
     "d3": "^5.11.0",
     "d3-sankey": "^0.12.1",
+    "gh-pages": "^2.1.1",
     "highcharts": "7.0.1",
     "highcharts-more": "^0.1.7",
     "lodash.debounce": "^4.0.8",
@@ -17,11 +18,14 @@
     "react-simple-maps": "^0.12.1",
     "simple-line-icons": "^2.4.1"
   },
+  "homepage": "https://ZachChang.github.io/GunsGermSteel",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
